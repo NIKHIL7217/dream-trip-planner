@@ -35,7 +35,7 @@ export function SiteHeader() {
 
   return (
     <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div className="w-full px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-8">
           <Link to="/" className="font-serif italic text-2xl font-black tracking-tighter">
             Ephemera.
