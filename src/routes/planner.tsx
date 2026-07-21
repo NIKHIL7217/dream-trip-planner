@@ -378,11 +378,12 @@ function Planner() {
           Smart Planner // Realtime AI + Edits + Admin Lead
         </div>
         <h1 className="text-4xl md:text-6xl font-serif leading-[0.92] max-w-4xl">
-          Chat karo, plan banao, edit karo, finalize karo.
+          Chat, build, edit, and finalize your trip.
         </h1>
         <p className="max-w-3xl text-muted-foreground leading-relaxed">
-          Tum AI ko bolo kitne din aur kaha jaana hai. AI real-time itinerary banayega, tum remove/add kar sakte ho,
-          place suggestions images ke saath milenge, phir final save/download par admin ko lead request chali jayegi.
+          Tell the AI your destination and trip length. It will generate a real-time itinerary that you can edit by
+          adding or removing activities, enrich with place suggestions and images, then save or download while sending
+          an admin callback request for costing.
         </p>
       </header>
 
@@ -399,7 +400,7 @@ function Planner() {
               value={chatDraft}
               onChange={(e) => setChatDraft(e.target.value)}
               rows={4}
-              placeholder="Example: Mujhe family ke saath 4 din ke liye Jaipur jana hai. Kids friendly activities bhi chahiye."
+              placeholder="Example: I am traveling to Jaipur with my family for 4 days. Please include kid-friendly activities."
               className="w-full bg-transparent border border-border rounded-lg p-3 focus:outline-none focus-visible:ring-1 focus-visible:ring-accent/70 text-sm"
             />
 
@@ -742,7 +743,7 @@ function Planner() {
                 <div className="glass-card rounded-xl p-4 space-y-3">
                   <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">AI Re-Plan</div>
                   <p className="text-sm text-muted-foreground">
-                    Tumhare edits ke basis par AI trip ko optimize karega (better sequence + practical flow).
+                    AI will optimize your itinerary after edits for better sequence and practical day flow.
                   </p>
                   <button
                     type="button"
@@ -823,7 +824,8 @@ function Planner() {
               <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground">No itinerary yet</div>
               <h2 className="font-serif text-3xl italic">Start with chat or form.</h2>
               <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                Chat based request do (e.g. 4 days Goa plan) ya manual details fill karo. Generated plan editable hoga.
+                Start with a chat request (for example, a 4-day Goa trip) or fill in the form manually. Your generated
+                itinerary will be fully editable.
               </p>
             </div>
           )}
