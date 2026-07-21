@@ -53,7 +53,7 @@ function Auth() {
   }
 
   return (
-    <main className="max-w-5xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-10 items-stretch">
+    <main className="w-full px-8 py-12 grid md:grid-cols-2 gap-10 items-stretch">
       <section className="hidden md:flex flex-col justify-between bg-foreground text-background rounded-3xl p-10 animate-reveal">
         <div>
           <div className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-60">Passport // 001</div>

@@ -47,7 +47,7 @@ function Settings() {
   }, [prefs, hydrated]);
 
   return (
-    <main className="max-w-4xl mx-auto px-6 py-12 space-y-12">
+    <main className="w-full px-8 py-12 space-y-12">
       <header className="animate-reveal">
         <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
           Preferences // Settings
