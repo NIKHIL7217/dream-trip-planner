@@ -20,7 +20,7 @@ function Profile() {
 
   if (!user) {
     return (
-      <main className="max-w-6xl mx-auto px-6 py-24 text-center">
+      <main className="w-full px-8 py-24 text-center">
         <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
           Redirecting to sign in…
         </p>
@@ -37,7 +37,7 @@ function Profile() {
     .toUpperCase();
 
   return (
-    <main className="max-w-6xl mx-auto px-6 py-12 space-y-12">
+    <main className="w-full px-8 py-12 space-y-12">
       <header className="animate-reveal">
         <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
           Traveler Log // Profile
