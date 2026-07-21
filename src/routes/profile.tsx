@@ -1,7 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "@/lib/auth";
 import { MapPin, Calendar, Sparkles } from "lucide-react";
+import { listSavedPlansByOwner, type SavedPlan } from "@/lib/saved-plans";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
@@ -13,14 +14,24 @@ export const Route = createFileRoute("/profile")({
 function Profile() {
   const { user, hydrated } = useSession();
   const navigate = useNavigate();
+  const [plans, setPlans] = useState<SavedPlan[]>([]);
 
   useEffect(() => {
     if (hydrated && !user) navigate({ to: "/auth" });
   }, [hydrated, user, navigate]);
 
+  useEffect(() => {
+    if (!user) return;
+
+    const load = () => setPlans(listSavedPlansByOwner(user.email));
+    load();
+    window.addEventListener("ephemera:saved-plans", load);
+    return () => window.removeEventListener("ephemera:saved-plans", load);
+  }, [user]);
+
   if (!user) {
     return (
-      <main className="w-full px-8 py-24 text-center">
+      <main className="max-w-6xl mx-auto px-6 py-24 text-center">
         <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
           Redirecting to sign in…
         </p>
@@ -37,7 +48,7 @@ function Profile() {
     .toUpperCase();
 
   return (
-    <main className="w-full px-8 py-12 space-y-12">
+    <main className="max-w-6xl mx-auto px-6 py-12 space-y-12">
       <header className="animate-reveal">
         <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
           Traveler Log // Profile
@@ -56,7 +67,7 @@ function Profile() {
       </header>
 
       <section className="grid md:grid-cols-3 gap-4 animate-reveal">
-        <Stat label="Journals drafted" value="—" />
+        <Stat label="Journals drafted" value={String(plans.length)} />
         <Stat label="Countries logged" value="—" />
         <Stat
           label="Member since"
@@ -78,19 +89,44 @@ function Profile() {
           </Link>
         </div>
 
-        <div className="bg-card ring-1 ring-border rounded-xl p-12 text-center space-y-4">
-          <Sparkles className="size-6 mx-auto text-accent" />
-          <h3 className="font-serif text-2xl">Your archive is empty.</h3>
-          <p className="text-sm text-muted-foreground max-w-md mx-auto">
-            Every generated itinerary will appear here once you save it. Start by drafting your first journal.
-          </p>
-          <Link
-            to="/planner"
-            className="inline-flex items-center gap-2 bg-foreground text-background py-3 px-6 rounded-xl font-mono text-xs uppercase tracking-widest hover:bg-accent transition-colors"
-          >
-            Draft a new trip
-          </Link>
-        </div>
+        {plans.length === 0 ? (
+          <div className="bg-card ring-1 ring-border rounded-xl p-12 text-center space-y-4">
+            <Sparkles className="size-6 mx-auto text-accent" />
+            <h3 className="font-serif text-2xl">Your archive is empty.</h3>
+            <p className="text-sm text-muted-foreground max-w-md mx-auto">
+              Every generated itinerary will appear here once you save it. Start by drafting your first journal.
+            </p>
+            <Link
+              to="/planner"
+              className="inline-flex items-center gap-2 bg-foreground text-background py-3 px-6 rounded-xl font-mono text-xs uppercase tracking-widest hover:bg-accent transition-colors"
+            >
+              Draft a new trip
+            </Link>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {plans.map((plan) => (
+              <article key={plan.id} className="bg-card ring-1 ring-border rounded-xl p-5">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <h3 className="font-serif text-2xl italic">{plan.itinerary.destination}</h3>
+                    <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mt-1">
+                      {plan.itinerary.days.length} days • {plan.itinerary.travelers} traveler(s) • {plan.itinerary.tier}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-muted-foreground">
+                      Saved {new Date(plan.updatedAt).toLocaleDateString()}
+                    </p>
+                    {plan.adminReferenceId && (
+                      <p className="text-[11px] font-mono text-accent mt-1">Ref: {plan.adminReferenceId}</p>
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="grid md:grid-cols-2 gap-4 animate-reveal">

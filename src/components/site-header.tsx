@@ -17,8 +17,10 @@ export function SiteHeader() {
   const navLink = (to: string, label: string) => (
     <Link
       to={to}
-      className={`transition-colors ${
-        pathname === to ? "text-accent" : "hover:text-accent"
+      className={`px-3 py-1.5 rounded-full transition-all ${
+        pathname === to
+          ? "text-accent bg-accent/14"
+          : "hover:text-accent hover:bg-accent/8"
       }`}
     >
       {label}
@@ -34,13 +36,13 @@ export function SiteHeader() {
     .toUpperCase();
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="w-full px-6 py-4 flex justify-between items-center">
+    <nav className="sticky top-0 z-50 border-b border-border/70 bg-background/55 backdrop-blur-xl">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-8">
-          <Link to="/" className="font-serif italic text-2xl font-black tracking-tighter">
+          <Link to="/" className="font-serif text-2xl font-semibold tracking-tight">
             Ephemera.
           </Link>
-          <div className="hidden md:flex gap-6 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          <div className="hidden md:flex gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground glass-card rounded-full px-2 py-1">
             {navLink("/", "Explore")}
             {navLink("/planner", "Planner")}
             {user && navLink("/profile", "My Logs")}
@@ -51,7 +53,7 @@ export function SiteHeader() {
           <Link
             to="/settings"
             aria-label="Settings"
-            className="p-2 hover:bg-foreground/5 rounded-full transition-colors"
+            className="p-2 hover:bg-foreground/6 rounded-full transition-colors"
           >
             <Settings className="size-4" />
           </Link>
@@ -61,7 +63,7 @@ export function SiteHeader() {
               <DropdownMenuTrigger asChild>
                 <button
                   aria-label="Account"
-                  className="size-9 bg-accent rounded-full flex items-center justify-center text-accent-foreground text-[10px] font-mono font-semibold"
+                  className="size-9 bg-linear-to-br from-primary to-accent rounded-full flex items-center justify-center text-accent-foreground text-[10px] font-mono font-semibold shadow-md"
                 >
                   {initials}
                 </button>
@@ -90,7 +92,7 @@ export function SiteHeader() {
           ) : (
             <Link
               to="/auth"
-              className="font-mono text-[10px] uppercase tracking-widest bg-foreground text-background px-4 py-2 rounded-md hover:bg-accent transition-colors"
+              className="font-mono text-[10px] uppercase tracking-widest bg-linear-to-r from-primary to-accent text-accent-foreground px-4 py-2 rounded-md hover:opacity-90 transition-opacity shadow-sm"
             >
               Sign in
             </Link>

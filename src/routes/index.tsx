@@ -1,6 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Sparkles, MapPin, ScrollText, Compass, BookOpen, Wallet, Feather, Quote } from "lucide-react";
+import { ArrowRight, Sparkles, MapPin, ScrollText } from "lucide-react";
+import { AmbientVideo } from "@/components/ambient-video";
 
+const HERO_VIDEO =
+  "https://player.vimeo.com/external/434045526.sd.mp4?s=7c0ea6f0c083f3e53495dd20ace3025cb2516896&profile_id=139&oauth2_token_id=57447761";
+const FALLBACK_MEDIA = "/media/travel-fallback.svg";
+
+const TRAVEL_IMAGES = [
+  "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?auto=format&fit=crop&w=1200&q=80",
+];
 
 const SAMPLE_DAYS = [
   {
@@ -82,69 +92,79 @@ export const Route = createFileRoute("/")({
 
 function Landing() {
   return (
-    <main className="w-full px-8 py-12 space-y-24">
+    <main className="max-w-7xl mx-auto px-6 py-12 space-y-24">
       {/* Hero + live preview */}
-      <section className="grid lg:grid-cols-12 gap-12 items-start">
+      <section className="grid lg:grid-cols-12 gap-12 items-start ambient-panel rounded-3xl px-2 md:px-4 py-6 animate-rise">
+        <div className="hero-orb w-52 h-52 top-2 right-[44%] bg-[radial-gradient(circle_at_30%_30%,oklch(0.74_0.13_70/0.58),transparent_65%)]" />
+        <div className="hero-orb w-56 h-56 -bottom-7 left-[22%] bg-[radial-gradient(circle_at_30%_30%,oklch(0.66_0.14_245/0.44),transparent_65%)] [animation-delay:1.2s]" />
+
         <div className="lg:col-span-5 space-y-8 animate-reveal">
-          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+          <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
             AI Travel Journals // Est. 2026
           </div>
-          <h1 className="text-5xl md:text-7xl font-serif italic text-balance leading-[0.9]">
+          <h1 className="text-5xl md:text-7xl font-serif text-balance leading-[0.88]">
             Plan your next
             <br />
-            unfolding story.
+            intelligent escape.
           </h1>
-          <p className="max-w-[38ch] text-muted-foreground text-lg">
-            AI-crafted itineraries that feel like hand-annotated journals. Attractions, culture, local events,
-            and fun — one uniquely-plotted day at a time.
+          <p className="max-w-[40ch] text-muted-foreground text-lg leading-relaxed">
+            Real-time AI trip companion that turns your intent into a living itinerary. Discover, edit, refine,
+            and finalize in one immersive flow.
           </p>
 
           <div className="flex flex-wrap gap-3">
             <Link
               to="/planner"
-              className="inline-flex items-center gap-2 bg-foreground text-background py-3 px-6 rounded-xl font-mono text-xs uppercase tracking-widest hover:bg-accent transition-all active:scale-95"
+              className="inline-flex items-center gap-2 bg-linear-to-r from-primary to-accent text-accent-foreground py-3 px-6 rounded-xl font-mono text-xs uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 shadow-lg"
             >
               Start planning <ArrowRight className="size-4" />
             </Link>
             <Link
               to="/auth"
-              className="inline-flex items-center gap-2 border border-border py-3 px-6 rounded-xl font-mono text-xs uppercase tracking-widest hover:border-accent hover:text-accent transition-colors"
+              className="inline-flex items-center gap-2 glass-card py-3 px-6 rounded-xl font-mono text-xs uppercase tracking-widest hover:border-accent hover:text-accent transition-colors"
             >
               Sign in
             </Link>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 pt-8 border-t border-border">
+          <div className="grid grid-cols-3 gap-4 pt-8 border-t border-border/70">
             <Feature icon={<Sparkles className="size-4" />} label="AI-authored" />
             <Feature icon={<MapPin className="size-4" />} label="Any destination" />
             <Feature icon={<ScrollText className="size-4" />} label="Day-by-day" />
           </div>
         </div>
 
-        <div className="lg:col-span-7 space-y-6 animate-reveal [animation-delay:150ms]">
+        <div className="lg:col-span-7 space-y-6 animate-reveal [animation-delay:150ms] glass-card rounded-2xl p-5 md:p-6 cinematic-frame">
+          <AmbientVideo
+            src={HERO_VIDEO}
+            posterSrc={FALLBACK_MEDIA}
+            className="cinematic-video image-pan"
+            overlayClassName="cinematic-overlay gradient-shimmer"
+          />
+
           <div className="flex justify-between items-end border-b-2 border-dashed border-border pb-4">
-            <div className="font-mono text-xs text-muted-foreground">LIVE PREVIEW // LOG_082</div>
-            <div className="font-serif italic text-2xl">Kyoto: The Zen Path</div>
+            <div className="font-mono text-xs text-white/90">LIVE PREVIEW // LOG_082</div>
+            <div className="font-serif text-2xl text-white">Kyoto: The Zen Path</div>
           </div>
 
           <div className="space-y-4">
             {SAMPLE_DAYS.map((d) => (
               <div
                 key={d.n}
-                className={`bg-card p-6 rounded-xl ring-1 ring-border flex gap-6 transition-all ${
-                  d.active ? "hover:ring-accent/30" : "opacity-60"
+                className={`p-6 rounded-xl ring-1 ring-white/25 flex gap-6 transition-all bg-white/12 backdrop-blur-sm ${
+                  d.active ? "hover:ring-primary/45" : "opacity-75"
                 }`}
               >
-                <div className={`font-mono shrink-0 ${d.active ? "text-accent" : "text-muted-foreground"}`}>
+                <div className={`font-mono shrink-0 ${d.active ? "text-accent" : "text-white/70"}`}>
                   <div className="text-2xl font-bold">{d.n}</div>
-                  <div className="text-[10px] uppercase tracking-tighter opacity-60">{d.day}</div>
+                  <div className="text-[10px] uppercase tracking-tighter opacity-70">{d.day}</div>
                 </div>
                 <div className="space-y-3">
-                  <h3 className="font-serif text-xl">{d.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{d.body}</p>
+                  <h3 className="font-serif text-xl text-white">{d.title}</h3>
+                  <p className="text-sm text-white/80 leading-relaxed">{d.body}</p>
                   <div className="flex gap-2 flex-wrap">
                     {d.tags.map((t) => (
-                      <span key={t} className="px-2 py-1 bg-background text-[10px] font-mono rounded">
+                      <span key={t} className="px-2 py-1 bg-white/20 text-[10px] text-white font-mono rounded">
                         {t}
                       </span>
                     ))}
@@ -157,7 +177,7 @@ function Landing() {
       </section>
 
       {/* Tiers */}
-      <section id="tiers" className="space-y-12 animate-reveal">
+      <section id="tiers" className="space-y-12 animate-rise">
         <div className="text-center space-y-2">
           <h2 className="font-serif text-3xl italic">Select your fare class</h2>
           <p className="text-muted-foreground font-mono text-xs uppercase tracking-widest">
@@ -171,16 +191,16 @@ function Landing() {
               key={t.code}
               to="/planner"
               search={{ tier: t.tag } as never}
-              className={`ticket-cutout p-8 rounded-lg space-y-6 hover:-translate-y-2 transition-transform relative block ${
+              className={`ticket-cutout p-8 rounded-2xl space-y-6 hover:-translate-y-2 transition-all duration-300 block ambient-panel ${
                 t.dark
                   ? "bg-foreground text-background"
                   : t.featured
-                  ? "bg-card border-2 border-accent"
-                  : "bg-card border border-border"
+                  ? "glass-card border-2 border-primary"
+                  : "glass-card"
               }`}
             >
               {t.featured && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground text-[9px] font-mono px-3 py-1 rounded-full uppercase tracking-widest">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[9px] font-mono px-3 py-1 rounded-full uppercase tracking-widest">
                   Recommended
                 </span>
               )}
@@ -217,193 +237,67 @@ function Landing() {
         </div>
       </section>
 
-      {/* Features */}
-      <section id="features" className="space-y-12 animate-reveal">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b-2 border-dashed border-border pb-6">
-          <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-              Chapter_01 // Features
-            </div>
-            <h2 className="font-serif italic text-4xl md:text-5xl mt-2">Everything the journal remembers.</h2>
+      {/* How it works */}
+      <section className="grid md:grid-cols-3 gap-6 animate-rise">
+        {[
+          {
+            n: "01",
+            title: "Describe your journey",
+            body: "Destination, days, travelers. Add a prompt if the muse strikes.",
+          },
+          {
+            n: "02",
+            title: "Choose your fare class",
+            body: "Budget, mid-range, premium, or a fully custom blend.",
+          },
+          {
+            n: "03",
+            title: "Receive your journal",
+            body: "A day-by-day plan of attractions, culture, events, and fun.",
+          },
+        ].map((s) => (
+          <div key={s.n} className="p-6 border border-border rounded-2xl glass-card">
+            <div className="font-mono text-xs text-primary">STEP_{s.n}</div>
+            <h3 className="font-serif text-2xl mt-2">{s.title}</h3>
+            <p className="text-sm text-muted-foreground mt-2">{s.body}</p>
           </div>
-          <p className="text-sm text-muted-foreground max-w-sm">
-            Ephemera stitches together the details other planners forget — culture, cadence, and quiet corners.
-          </p>
+        ))}
+      </section>
+
+      {/* Visual moodboard */}
+      <section className="space-y-6 animate-rise">
+        <div className="flex justify-between items-end border-b border-border pb-3">
+          <h2 className="font-serif text-3xl">Destination Moodboard</h2>
+          <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Visual references</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            {
-              icon: <Sparkles className="size-5" />,
-              tag: "FEAT_01",
-              title: "AI-authored day plans",
-              body: "Each day is composed with a narrative arc — morning light, midday depth, evening rest.",
-            },
-            {
-              icon: <Compass className="size-5" />,
-              tag: "FEAT_02",
-              title: "Attractions & hidden corners",
-              body: "Iconic sites paired with the family-run tea house tucked three streets away.",
-            },
-            {
-              icon: <BookOpen className="size-5" />,
-              tag: "FEAT_03",
-              title: "Culture & heritage lens",
-              body: "Context on temples, rituals, and neighborhoods so you arrive already listening.",
-            },
-            {
-              icon: <MapPin className="size-5" />,
-              tag: "FEAT_04",
-              title: "Local events, in season",
-              body: "Festivals, night markets, and gallery openings surfaced for your dates.",
-            },
-            {
-              icon: <Wallet className="size-5" />,
-              tag: "FEAT_05",
-              title: "Fare-class tiers",
-              body: "Budget, mid-range, premium, or a custom blend — the itinerary reshapes to fit.",
-            },
-            {
-              icon: <Feather className="size-5" />,
-              tag: "FEAT_06",
-              title: "Save & revisit journals",
-              body: "Every generated log lands in your archive, ready to reread or refine.",
-            },
-          ].map((f) => (
-            <div
-              key={f.tag}
-              className="bg-card p-6 rounded-xl ring-1 ring-border hover:ring-accent/40 hover:-translate-y-1 transition-all space-y-4"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-accent">{f.icon}</span>
-                <span className="font-mono text-[10px] text-muted-foreground">{f.tag}</span>
+        <div className="grid md:grid-cols-3 gap-4">
+          {TRAVEL_IMAGES.map((src, idx) => (
+            <div key={idx} className="cinematic-frame h-60 md:h-72 glass-card">
+              <img
+                src={src}
+                alt="Travel inspiration"
+                className="w-full h-full object-cover image-pan"
+                loading="lazy"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = FALLBACK_MEDIA;
+                }}
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
+              <div className="absolute bottom-3 left-3 right-3">
+                <p className="text-white font-mono text-[10px] uppercase tracking-widest">Scene {String(idx + 1).padStart(2, "0")}</p>
               </div>
-              <h3 className="font-serif text-xl">{f.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{f.body}</p>
             </div>
           ))}
         </div>
       </section>
-
-      {/* How it works — step-by-step */}
-      <section id="how-it-works" className="space-y-12 animate-reveal">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b-2 border-dashed border-border pb-6">
-          <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-              Chapter_02 // How it works
-            </div>
-            <h2 className="font-serif italic text-4xl md:text-5xl mt-2">From prompt to plotted days.</h2>
-          </div>
-          <p className="text-sm text-muted-foreground max-w-sm">
-            Five small steps between an empty page and a hand-annotated route through your next city.
-          </p>
-        </div>
-
-        <ol className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-          {[
-            { n: "01", title: "Describe your journey", body: "Destination, days, travelers, and any wishes." },
-            { n: "02", title: "Choose a fare class", body: "Budget, mid-range, premium, or fully custom." },
-            { n: "03", title: "Confirm your ticket", body: "Purchase the plan to unlock generation." },
-            { n: "04", title: "AI drafts the log", body: "Culture, attractions, food, and events, day by day." },
-            { n: "05", title: "Save & wander", body: "Archive to your profile and adjust anytime." },
-          ].map((s, i) => (
-            <li key={s.n} className="relative p-6 border-t border-border">
-              <div className="font-mono text-xs text-accent">STEP_{s.n}</div>
-              <h3 className="font-serif text-xl mt-2">{s.title}</h3>
-              <p className="text-sm text-muted-foreground mt-2">{s.body}</p>
-              {i < 4 && (
-                <ArrowRight className="hidden lg:block size-4 text-muted-foreground absolute -right-3 top-8" />
-              )}
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      {/* Stories */}
-      <section id="stories" className="space-y-12 animate-reveal">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b-2 border-dashed border-border pb-6">
-          <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-              Chapter_03 // Stories
-            </div>
-            <h2 className="font-serif italic text-4xl md:text-5xl mt-2">Postcards from past travelers.</h2>
-          </div>
-          <p className="text-sm text-muted-foreground max-w-sm">
-            Journals shared back after the trip — unedited, in their words.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            {
-              name: "Amara O.",
-              trip: "Lisbon, 6 days // Mid-Range",
-              stamp: "LOG_047",
-              quote:
-                "The Alfama walk on day two led us to a fado bar we'd never have found. It felt like the AI had actually been there.",
-            },
-            {
-              name: "Ravi & Meera",
-              trip: "Kyoto, 8 days // Premium",
-              stamp: "LOG_063",
-              quote:
-                "Every morning had a rhythm — temple, tea, wander. The pacing alone was worth the fare class.",
-            },
-            {
-              name: "Sofia L.",
-              trip: "Oaxaca, 5 days // Budget",
-              stamp: "LOG_071",
-              quote:
-                "Street food routes, mercado hours, a mezcal tasting under $12. Best trip I've booked solo, honestly.",
-            },
-            {
-              name: "Jonas K.",
-              trip: "Reykjavík, 4 days // Custom",
-              stamp: "LOG_082",
-              quote:
-                "I asked for 'quiet, cold, and geothermal.' It delivered a whole day I still think about.",
-            },
-            {
-              name: "Priya S.",
-              trip: "Istanbul, 7 days // Mid-Range",
-              stamp: "LOG_089",
-              quote:
-                "The heritage notes on each mosque made the visits mean something. Not a checklist — a story.",
-            },
-            {
-              name: "Marco D.",
-              trip: "Buenos Aires, 6 days // Premium",
-              stamp: "LOG_094",
-              quote:
-                "Milonga on Wednesday, parrilla on Friday, siesta built in. My kind of itinerary.",
-            },
-          ].map((s) => (
-            <figure
-              key={s.stamp}
-              className="bg-card p-6 rounded-xl ring-1 ring-border space-y-4 hover:ring-accent/40 transition-all"
-            >
-              <div className="flex items-center justify-between">
-                <Quote className="size-5 text-accent" />
-                <span className="font-mono text-[10px] text-muted-foreground">{s.stamp}</span>
-              </div>
-              <blockquote className="font-serif italic text-lg leading-snug">&ldquo;{s.quote}&rdquo;</blockquote>
-              <figcaption className="pt-4 border-t border-dashed border-border">
-                <div className="font-serif text-base">{s.name}</div>
-                <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mt-1">
-                  {s.trip}
-                </div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
-
 
       {/* CTA */}
-      <section className="bg-foreground text-background rounded-3xl overflow-hidden animate-reveal">
+      <section className="rounded-3xl overflow-hidden animate-rise ambient-panel bg-[linear-gradient(135deg,oklch(0.28_0.13_255),oklch(0.57_0.13_40))] text-primary-foreground">
         <div className="p-12 grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <h2 className="text-4xl font-serif italic">Save your wandering thoughts.</h2>
+            <h2 className="text-4xl font-serif">Save your wandering thoughts.</h2>
             <p className="opacity-70 max-w-[36ch]">
               Create an account to save generated journals, revisit past trips, and sync with your logbook.
             </p>
@@ -411,7 +305,7 @@ function Landing() {
           <div className="flex md:justify-end">
             <Link
               to="/planner"
-              className="inline-flex items-center gap-2 bg-accent text-accent-foreground py-4 px-8 rounded-lg font-mono uppercase tracking-widest text-sm hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 bg-white text-slate-900 py-4 px-8 rounded-lg font-mono uppercase tracking-widest text-sm hover:opacity-90 transition-opacity"
             >
               Draft an itinerary <ArrowRight className="size-4" />
             </Link>
