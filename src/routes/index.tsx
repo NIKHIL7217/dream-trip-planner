@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Sparkles, MapPin, ScrollText } from "lucide-react";
+import { ArrowRight, Sparkles, MapPin, ScrollText, Compass, BookOpen, Wallet, Feather, Quote } from "lucide-react";
+
 
 const SAMPLE_DAYS = [
   {
@@ -216,32 +217,187 @@ function Landing() {
         </div>
       </section>
 
-      {/* How it works */}
-      <section className="grid md:grid-cols-3 gap-6 animate-reveal">
-        {[
-          {
-            n: "01",
-            title: "Describe your journey",
-            body: "Destination, days, travelers. Add a prompt if the muse strikes.",
-          },
-          {
-            n: "02",
-            title: "Choose your fare class",
-            body: "Budget, mid-range, premium, or a fully custom blend.",
-          },
-          {
-            n: "03",
-            title: "Receive your journal",
-            body: "A day-by-day plan of attractions, culture, events, and fun.",
-          },
-        ].map((s) => (
-          <div key={s.n} className="p-6 border-t border-border">
-            <div className="font-mono text-xs text-accent">STEP_{s.n}</div>
-            <h3 className="font-serif text-2xl mt-2">{s.title}</h3>
-            <p className="text-sm text-muted-foreground mt-2">{s.body}</p>
+      {/* Features */}
+      <section id="features" className="space-y-12 animate-reveal">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b-2 border-dashed border-border pb-6">
+          <div>
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+              Chapter_01 // Features
+            </div>
+            <h2 className="font-serif italic text-4xl md:text-5xl mt-2">Everything the journal remembers.</h2>
           </div>
-        ))}
+          <p className="text-sm text-muted-foreground max-w-sm">
+            Ephemera stitches together the details other planners forget — culture, cadence, and quiet corners.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              icon: <Sparkles className="size-5" />,
+              tag: "FEAT_01",
+              title: "AI-authored day plans",
+              body: "Each day is composed with a narrative arc — morning light, midday depth, evening rest.",
+            },
+            {
+              icon: <Compass className="size-5" />,
+              tag: "FEAT_02",
+              title: "Attractions & hidden corners",
+              body: "Iconic sites paired with the family-run tea house tucked three streets away.",
+            },
+            {
+              icon: <BookOpen className="size-5" />,
+              tag: "FEAT_03",
+              title: "Culture & heritage lens",
+              body: "Context on temples, rituals, and neighborhoods so you arrive already listening.",
+            },
+            {
+              icon: <MapPin className="size-5" />,
+              tag: "FEAT_04",
+              title: "Local events, in season",
+              body: "Festivals, night markets, and gallery openings surfaced for your dates.",
+            },
+            {
+              icon: <Wallet className="size-5" />,
+              tag: "FEAT_05",
+              title: "Fare-class tiers",
+              body: "Budget, mid-range, premium, or a custom blend — the itinerary reshapes to fit.",
+            },
+            {
+              icon: <Feather className="size-5" />,
+              tag: "FEAT_06",
+              title: "Save & revisit journals",
+              body: "Every generated log lands in your archive, ready to reread or refine.",
+            },
+          ].map((f) => (
+            <div
+              key={f.tag}
+              className="bg-card p-6 rounded-xl ring-1 ring-border hover:ring-accent/40 hover:-translate-y-1 transition-all space-y-4"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-accent">{f.icon}</span>
+                <span className="font-mono text-[10px] text-muted-foreground">{f.tag}</span>
+              </div>
+              <h3 className="font-serif text-xl">{f.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{f.body}</p>
+            </div>
+          ))}
+        </div>
       </section>
+
+      {/* How it works — step-by-step */}
+      <section id="how-it-works" className="space-y-12 animate-reveal">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b-2 border-dashed border-border pb-6">
+          <div>
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+              Chapter_02 // How it works
+            </div>
+            <h2 className="font-serif italic text-4xl md:text-5xl mt-2">From prompt to plotted days.</h2>
+          </div>
+          <p className="text-sm text-muted-foreground max-w-sm">
+            Five small steps between an empty page and a hand-annotated route through your next city.
+          </p>
+        </div>
+
+        <ol className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+          {[
+            { n: "01", title: "Describe your journey", body: "Destination, days, travelers, and any wishes." },
+            { n: "02", title: "Choose a fare class", body: "Budget, mid-range, premium, or fully custom." },
+            { n: "03", title: "Confirm your ticket", body: "Purchase the plan to unlock generation." },
+            { n: "04", title: "AI drafts the log", body: "Culture, attractions, food, and events, day by day." },
+            { n: "05", title: "Save & wander", body: "Archive to your profile and adjust anytime." },
+          ].map((s, i) => (
+            <li key={s.n} className="relative p-6 border-t border-border">
+              <div className="font-mono text-xs text-accent">STEP_{s.n}</div>
+              <h3 className="font-serif text-xl mt-2">{s.title}</h3>
+              <p className="text-sm text-muted-foreground mt-2">{s.body}</p>
+              {i < 4 && (
+                <ArrowRight className="hidden lg:block size-4 text-muted-foreground absolute -right-3 top-8" />
+              )}
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* Stories */}
+      <section id="stories" className="space-y-12 animate-reveal">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b-2 border-dashed border-border pb-6">
+          <div>
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+              Chapter_03 // Stories
+            </div>
+            <h2 className="font-serif italic text-4xl md:text-5xl mt-2">Postcards from past travelers.</h2>
+          </div>
+          <p className="text-sm text-muted-foreground max-w-sm">
+            Journals shared back after the trip — unedited, in their words.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              name: "Amara O.",
+              trip: "Lisbon, 6 days // Mid-Range",
+              stamp: "LOG_047",
+              quote:
+                "The Alfama walk on day two led us to a fado bar we'd never have found. It felt like the AI had actually been there.",
+            },
+            {
+              name: "Ravi & Meera",
+              trip: "Kyoto, 8 days // Premium",
+              stamp: "LOG_063",
+              quote:
+                "Every morning had a rhythm — temple, tea, wander. The pacing alone was worth the fare class.",
+            },
+            {
+              name: "Sofia L.",
+              trip: "Oaxaca, 5 days // Budget",
+              stamp: "LOG_071",
+              quote:
+                "Street food routes, mercado hours, a mezcal tasting under $12. Best trip I've booked solo, honestly.",
+            },
+            {
+              name: "Jonas K.",
+              trip: "Reykjavík, 4 days // Custom",
+              stamp: "LOG_082",
+              quote:
+                "I asked for 'quiet, cold, and geothermal.' It delivered a whole day I still think about.",
+            },
+            {
+              name: "Priya S.",
+              trip: "Istanbul, 7 days // Mid-Range",
+              stamp: "LOG_089",
+              quote:
+                "The heritage notes on each mosque made the visits mean something. Not a checklist — a story.",
+            },
+            {
+              name: "Marco D.",
+              trip: "Buenos Aires, 6 days // Premium",
+              stamp: "LOG_094",
+              quote:
+                "Milonga on Wednesday, parrilla on Friday, siesta built in. My kind of itinerary.",
+            },
+          ].map((s) => (
+            <figure
+              key={s.stamp}
+              className="bg-card p-6 rounded-xl ring-1 ring-border space-y-4 hover:ring-accent/40 transition-all"
+            >
+              <div className="flex items-center justify-between">
+                <Quote className="size-5 text-accent" />
+                <span className="font-mono text-[10px] text-muted-foreground">{s.stamp}</span>
+              </div>
+              <blockquote className="font-serif italic text-lg leading-snug">&ldquo;{s.quote}&rdquo;</blockquote>
+              <figcaption className="pt-4 border-t border-dashed border-border">
+                <div className="font-serif text-base">{s.name}</div>
+                <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mt-1">
+                  {s.trip}
+                </div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
 
       {/* CTA */}
       <section className="bg-foreground text-background rounded-3xl overflow-hidden animate-reveal">
